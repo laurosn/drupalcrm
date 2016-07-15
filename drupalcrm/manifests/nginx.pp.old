@@ -1,0 +1,53 @@
+class drupalcrm::nginx {
+
+       file { "/etc/nginx/nginx.conf":
+		ensure	=> file,
+		mode	=> '0644',
+		owner	=> 'root',
+		group	=> 'root',
+		source  => "puppet:///modules/${module_name}/nginx/nginx.conf",
+		require => Package["nginx"],
+		notify => Service['nginx-service']
+ 	}
+
+       file { "/etc/nginx/sites-available/default":
+		ensure	=> file,
+		mode	=> '0644',
+		owner	=> 'root',
+		group	=> 'root',
+		source  => "puppet:///modules/${module_name}/nginx/default.nginx",
+		require => Package["nginx"],
+		notify => Service['nginx-service']
+ 	}
+	->
+        file { '/etc/nginx/sites-enabled/default':
+	    ensure => 'link',
+	    target => '/etc/nginx/sites-available/default',
+	  }
+
+
+	 file { "/var/www/html":
+	    ensure  => directory,
+	    replace => false,
+	    recurse => false,
+	    owner   => "www-data",
+	    group   => "www-data",
+	  }
+	 ->
+          file { "/var/www/html/info.php":
+	    ensure  => directory,
+	    replace => false,
+	    recurse => false,
+	    owner   => "www-data",
+	    group   => "www-data",
+	    source  => "puppet:///modules/${module_name}/phpfpm/info.php",
+	  }
+
+	  service { 'nginx-service':
+	    name   => "nginx",
+	    ensure => running,
+	    enable => true,
+	    hasstatus => true,
+	    hasrestart => true,
+	  }
+}
