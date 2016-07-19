@@ -27,7 +27,7 @@
   * ```civicrm.pp``` - Installs CiviCRM module (extract tarball and execute the installation through Drush )
   * ```database.pp``` - Manage and configure the databases (CiviCRM database and Drupal Database)
   * ```drupal.pp``` - Installs Drupal (extract tarball and execute the installation through Drush )
-  * ```init.pp``` - Node configuration
+  * ```/etc/puppetlabs/code/environments/production/manifests/init.pp``` - Node configuration
   * ```nginx.pp``` - Manage and configure the nginx configuration/service
   * ```packages.pp``` - Manage all the necessary operating system packages
   * ```phpfpm.pp``` - Manage and configure the PHP/Fpm configuration/service
@@ -38,3 +38,8 @@
   * ```source /etc/profile.d/puppet_path.sh``` 
   * ```puppet apply --test --debug /etc/puppetlabs/code/environments/production/manifests/init.pp```
   * To test if puppet is managing the configuration you could do some tests: stop nginx/mysql services, drop databases, remove drupal folder, change nginx configuration. Then, run the agent again
+
+
+**5. Backup*
+
+* I've tried to use the *Backup and Migrate Drupal module*, but it was difficult to find good resources (docs , articles, etc). All examples that i've found were using the "wizard" screen, but we want to automate  the backup process without "manually" intervention. So, the option was to do this through "drush bam". I've tried, but as i said before, i haven't found good resources. So, i've decided to take a more generic approach: using two opensource solutions:  [Xtrabackup](https://www.percona.com/software/mysql-database/percona-xtrabackup)  to backup Mysql and   [Duplicity](http://duplicity.nongnu.org/) to backup the websites.
