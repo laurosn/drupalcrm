@@ -8,8 +8,13 @@ class drupalcrm::packages {
                                 'php5-mysql',
 				'drush',
 				'curl',
-				'php5-curl'
+				'php5-curl',
+				'duplicity',
+				'python-pip',
+				'python-boto'
                                 ]:
                                 ensure  => installed
         }
+
+
 }
