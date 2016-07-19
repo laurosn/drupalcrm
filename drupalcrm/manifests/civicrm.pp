@@ -21,6 +21,14 @@ class drupalcrm::civicrm {
             command => "/bin/sh -c 'chown -R www-data: /var/www/drupal/'",
       }
       ->
+      file { "/usr/share/php/drush/commands/civicrm/civicrm.drush.inc":
+            ensure  => file,
+            owner   => "root",
+            group   => "root",
+            mode    => '0644',
+            source  => "puppet:///modules/${module_name}/drush/civicrm.drush.inc",
+      }
+      ->
       exec { "install-civicrm":
         command => "/bin/sh -c 'drush cache-clear drush && cd /var/www/drupal && drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm > /var/www/drupal/sites/all/modules/civicrm/drush-civicrm-installed'",
 #        command => "drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm",
