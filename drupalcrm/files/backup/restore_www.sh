@@ -67,7 +67,7 @@ fi
 
 
 duplicity --restore-time $DATE --file-to-restore $FILE ${DEST} $TO
-
+chown -R www-data: /var/www
 # Reset the ENV variables. Don't need them sitting around
 unset AWS_ACCESS_KEY_ID
 unset AWS_SECRET_ACCESS_KEY

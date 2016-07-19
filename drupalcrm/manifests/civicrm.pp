@@ -14,6 +14,7 @@ class drupalcrm::civicrm {
       ->
       exec{"extract-civicrm":
             command => "/bin/sh -c 'cd /var/www/drupal/sites/all/modules/ && tar xvfz /var/www/drupal/sites/all/modules/civicrm-4.7.9-drupal.tar.gz'",
+            creates => "/var/www/drupal/sites/all/modules/civicrm"   
       }
       -> 
       exec{"chown-civicrm":
@@ -21,9 +22,10 @@ class drupalcrm::civicrm {
       }
       ->
       exec { "install-civicrm":
-        command => "/bin/sh -c 'drush cache-clear drush && cd /var/www/drupal && drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm'",
+        command => "/bin/sh -c 'drush cache-clear drush && cd /var/www/drupal && drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm > /var/www/drupal/sites/all/modules/civicrm/drush-civicrm-installed'",
 #        command => "drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm",
 #        cwd     => "/var/www/drupal",
+	creates => "/var/www/drupal/sites/all/modules/civicrm/drush-civicrm-installed",
         path    => ['/usr/bin', '/usr/sbin', '/bin'],
       }
       ->
