@@ -65,6 +65,6 @@
 
 **7. TODO**
 
-  * Unfortunately i didn't have enough time to do the Pnetaho task
+  * Unfortunately i didn't have enough time to do the Pentaho task
   * All passwords/data are stored in clear text inside puppet/shell script files. In a production environment, we should use hiera + eyaml.
   * Use r10k to manage puppet modules
