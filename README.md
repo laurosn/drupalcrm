@@ -22,7 +22,7 @@
   * ```/root/backup/scripts/``` - Backup/restore shell scripts
 **4. Puppet module**
 
-* The source is avaiable on his [Github](https://github.com/laurosn/drupalcrm/tree/master/drupalcrm)
+* The source is available on [Github](https://github.com/laurosn/drupalcrm/tree/master/drupalcrm)
 * Inside the *manifests* folder are located the classes (.pp files) that manages the configuration:
   * ```backup.pp``` - Installs all the scripts to manage the backup tasks and configures the crontab for the jobs
   * ```civicrm.pp``` - Installs CiviCRM module (extract tarball and execute the installation through Drush )
@@ -43,7 +43,7 @@
 
 **5. Backup**
 
-* I've tried to use the *Backup and Migrate Drupal module*, but it was difficult to find good resources (docs , articles, etc). All examples that i've found were using the "wizard" screen, but we want to automate  the backup process without "manually" intervention. So, the option was to do this through "drush bam". I've tried, but as i said before, i haven't found good resources. So, i've decided to take a more generic approach: using two opensource solutions:  [Xtrabackup](https://www.percona.com/software/mysql-database/percona-xtrabackup)  to backup Mysql and   [Duplicity](http://duplicity.nongnu.org/) to backup the websites.
+* I've tried to use the *Backup and Migrate Drupal module*, but it was difficult to find good resources (docs , articles, etc). All examples that i've found were using the "wizard" screen, but we want to automate  the backup process without "manually" intervention. So, the option was to do this through "drush bam". I've tried, but as i said before, i haven't found good resources. So, i've decided to take a more generic approach, using two opensource solutions:  [Xtrabackup](https://www.percona.com/software/mysql-database/percona-xtrabackup)  to backup Mysql and   [Duplicity](http://duplicity.nongnu.org/) to backup the websites.
 
 * **5.1 Backup/Restore Mysql**
   * The puppet class *drupalcrm::backup* (file backup.pp) installs the xtrabackup package and restore shell script
