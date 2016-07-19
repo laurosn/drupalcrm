@@ -21,8 +21,13 @@ class drupalcrm::civicrm {
       }
       ->
       exec { "install-civicrm":
-        command => "/bin/sh -c 'cd /var/www/drupal && drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm'",
-        cwd     => "/var/www/drupal",
+        command => "/bin/sh -c 'drush cache-clear drush && cd /var/www/drupal && drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm'",
+#        command => "drush civicrm-install --dbuser=civiuser --dbpass=civicrm --dbhost=localhost --dbname=civicrm",
+#        cwd     => "/var/www/drupal",
         path    => ['/usr/bin', '/usr/sbin', '/bin'],
+      }
+      ->
+      exec{"chown-civicrm-2":
+            command => "/bin/sh -c 'chown -R www-data: /var/www/drupal*'",
       }
 }

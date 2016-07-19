@@ -11,12 +11,19 @@ class drupalcrm::database {
 	  host     => 'localhost',
 	  grant    => ['ALL'],
 	}
+	->
         mysql::db { 'civicrm':
           user     => 'civiuser',
           password => 'civicrm',
           host     => 'localhost',
           grant    => ['ALL'],
         }
+->
 
+mysql_grant{'drupaluser@localhost/civicrm.*':
+  user       => 'drupaluser@localhost',
+  table      => 'civicrm.*',
+  privileges => ['SELECT'],
+}
 
 }
