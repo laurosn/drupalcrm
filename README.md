@@ -1,4 +1,4 @@
-# drupalcrm
+# Compucorp DevOps / Sysadmin Tasks
 
 **1. Accessing the aws instance through SSH**
 
@@ -18,7 +18,8 @@
 * Configuration directories
   * ```/etc/nginx``` - Nginx configuration (generated from puppet module) 
   * ```/etc/puppetlabs/code/environments/production/modules/drupalcrm``` - Puppet module created that manages all the required configuration
-
+  * ```/var/www/drupal``` - Drupal site files
+  * ```/root/backup/scripts/``` - Backup/restore shell scripts
 **4. Puppet module**
 
 * The source is avaiable on his [Github](https://github.com/laurosn/drupalcrm/tree/master/drupalcrm)
@@ -55,4 +56,15 @@
   * The puppet class *drupalcrm::backup* schedules the backup_www.sh script (cron) to backup the /var/www everyday 00:39
   * When the backup job finishes, backup files are sent to S3 (work-for-us-bucket/drupal)
   * To restore a backup, use the script ```restore_www.sh -d [DATE] -f [FILES_TO_RECOVER] -t [RESTORE_TO]```
-  * Example ```/root/backup/restore_www.sh -d 2016-07-19 -f var/www -t /var/www```
+  * Example ```/root/backup/scripts/restore_www.sh -d 2016-07-19 -f var/www -t /var/www```
+
+**6. PCI compliance scan**
+
+![PCI compliance scan](https://github.com/laurosn/drupalcrm/blob/master/Selection_060.png)
+
+
+**7. TODO**
+
+  * Unfortunately i didn't have enough time to do the Pnetaho task
+  * All passwords/data are stored in clear text inside puppet/shell script files. In a production environment, we should use hiera + eyaml.
+  * Use r10k to manage puppet modules
